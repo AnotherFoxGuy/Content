@@ -144,9 +144,9 @@ void calcPosition(float dt)
         if (j >= Length - 1)
         {
         	benchmark = false;
-					game.message("Results can be found in Angelscript.log","note.png", 1000, true);
-        	game.log("Max "+frames_max+" FPS");
-        	game.log("Min "+frames_min+" FPS");
+					game.showMessageBox("Results","Max FPS:"+frames_max+"\nMin FPS:"+frames_min,true,"Ok",false,false,"");
+					game.log("Max "+frames_max+" FPS");
+					game.log("Min "+frames_min+" FPS");
           i = 0;
           j = 0;
         }

@@ -1,0 +1,47 @@
+material Eds_Tree1Cross 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass HegeAlpha
+        {
+			ambient 3 2.9 3
+			diffuse 0.3 0.15 0.3
+			//specular 0.25 0.25 0.25 0.5 
+			//emissive 0.25 0.25 0.25
+			
+			alpha_rejection greater 128
+			alpha_to_coverage on
+			cull_hardware none
+			cull_software none
+            texture_unit 
+            {
+                texture Eds_Tree1Cross.png
+            }
+        }
+    }
+}
+
+// Eds_Tree1Wood genrated by blender2ogre 0.6.0
+
+material Eds_Tree1Wood 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass HegeAlpha
+        {
+			
+			alpha_rejection greater 128
+			alpha_to_coverage on
+
+			
+            texture_unit 
+            {
+                texture Eds_Tree1Wood.png
+            }
+        }
+    }
+}

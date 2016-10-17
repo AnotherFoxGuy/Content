@@ -1,10 +1,10 @@
 [General]
-Name = GPU benchmark 
+Name = GPU benchmark
 GeometryConfig = f4afUID-flat_map_full32xa.otc
 Water=0
 WaterLine = 0.5
 AmbientColor = 0.93, 0.86, 0.76
-StartPosition = 2446.564697 0 2175.090088
+StartPosition = 2000 0 2000
 #CaelumConfigFile =
 SandStormCubeMap = tracks/skyboxcol
 Gravity = -9.81
@@ -15,7 +15,7 @@ TractionMap = f4afUID-flat_map_full32xa-landuse.cfg
 collision-tris 150000
 
 [Authors]
-terrain = TechWolf32  
+terrain = TechWolf32
 converting = Klink
 angelscript = AnotherFoxGuy
 

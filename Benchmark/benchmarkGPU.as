@@ -1,29 +1,32 @@
 #include "base.as"
-
-
 int s = 0;
 bool works = true;
 
-vector3 main_pos(2000, 0,  2000);
+vector3 center(2000, 0,  2000);
 
-vector3 pos_stop1(1950, 10, 1950);
-vector3 pos_stop2(1950, 10, 2050);
-vector3 pos_stop3(2050, 10, 1950);
-vector3 pos_stop4(2050, 10, 2050);
-vector3 pos_stop5(1950, 10, 1950);
+array<vector3> sp_points = {
+		vector3(1950, 20, 1950),
+		vector3(1950, 20, 2050),
+		vector3(2050, 20, 2050),
+		vector3(2050, 20, 1950),
+		vector3(1950, 20, 1950)
+};
 
-array<vector3> sp_points;
-array<vector3> sp_points_lookat;
-vector3 p0;
-vector3 p1;
-vector3 m0;
-vector3 m1;
+array<vector3> sp_points_lookat = {
+		vector3(1950, 15, 1960),
+		vector3(1960, 20, 2050),
+		vector3(2050, 15, 2040),
+		vector3(2040, 18, 1950),
+		vector3(1950, 15, 1960)
+};
+
+vector3 p0,p1,m0,m1;
 
 float t;
 vector3 position;
 int Length;
-int j = 0;
-float i = 0;
+int j, n;
+float i, m;
 
 float ft = 0;
 int frames = 0;
@@ -35,21 +38,25 @@ bool benchmark = true;
 
 void main()
 {
-	spawnWaypoint( pos_stop1);
-	spawnWaypoint( pos_stop2);
-	spawnWaypoint( pos_stop3);
-	spawnWaypoint( pos_stop4);
-	spawnWaypoint( pos_stop5);
 	Length = sp_points.length();
+
+	for( int x = 1500; x < 2500; x+=25 )
+	{
+		for( int z = 1500; z < 2500; z+=25 )
+		{
+			game.spawnObject("Eds_Tree1" , "Eds_Tree1",vector3(x,0,z), vector3(0, -90, 0),  "e", false);
+		}
+	}
 }
 
 void frameStep(float dt)
-{ 
+{
 	if(benchmark)
 	{
-		game.cameraLookAt(main_pos);
-		game.setPersonPosition(main_pos);
+		//game.cameraLookAt(center);
+		game.setPersonPosition(center);
 		calcCamPos(dt);
+		calcLookAtPos(dt);
 		ft = ft + dt;
 		frames++;
 		if(ft > 1)
@@ -57,7 +64,7 @@ void frameStep(float dt)
 			game.message(frames+" FPS \nMax "+frames_max+" FPS \nMin "+frames_min+" FPS","note.png", 1000, true);
 			if (frames > frames_max)
 			{
-				frames_max = frames;	
+				frames_max = frames;
 			}
 			if (frames < frames_min)
 			{
@@ -70,18 +77,10 @@ void frameStep(float dt)
 	}
 
 }
- 
-void spawnWaypoint(vector3 pos)
-{
-	sp_points.insertLast(pos);
-	pos.x+=10;
-	sp_points_lookat.insertLast(pos);
-	//game.spawnObject("trucktriggerV2", "trucktriggerV2", pos, vector3(0, -90, 0),  "Event1", false);
-}
 
 void calcCamPos(float dt)
 {
-	p0 = sp_points[j];
+		p0 = sp_points[j];
     p1 = sp_points[j + 1];
     if (j > 0)
     {
@@ -125,22 +124,9 @@ void calcCamPos(float dt)
     {
         j++;
         i = 0;
-        if (j >= Length - 1)
+				if (j >= Length - 1)
         {
-        	benchmark = false;
-        	game.message("Results can be found in Angelscript.log","note.png", 1000, true);
-        	game.log("Max "+frames_max+" FPS");
-        	game.log("Min "+frames_min+" FPS");
-        	int l = frame.length();
-        	int sum = 0;
-        	for( int r = 0; r < l; r++ )
-        	{
-			    sum += parseInt( elmt[r], 10 ); //don't forget to add the base
-			}
-			var avg = sum/l;
-			game.log("avg "+avg+" FPS");
-            i = 0;
-            j = 0;
+        	results();
         }
     }
     game.setCameraPosition(position);
@@ -148,7 +134,7 @@ void calcCamPos(float dt)
 
 void calcLookAtPos(float dt)
 {
-	p0 = sp_points_lookat[n];
+		p0 = sp_points_lookat[n];
     p1 = sp_points_lookat[n + 1];
     if (n > 0)
     {
@@ -194,12 +180,17 @@ void calcLookAtPos(float dt)
         m = 0;
         if (n >= Length - 1)
         {
-        	benchmark = false;
-        	game.message("Results can be found mn Angelscrmpt.log","note.png", 1000, true);
-        	game.log("Max "+frames_max+" FPS \nMmn "+frames_mmn+" FPS");
-            m = 0;
-            n = 0;
+        	results();
         }
     }
     game.cameraLookAt(position);
+}
+
+void results()
+{
+	benchmark = false;
+	m = 0; n = 0; i = 0; j = 0;
+	game.showMessageBox("Results","Max FPS:"+frames_max+"\nMin FPS:"+frames_min,true,"Ok",false,false,"");
+	game.log("Max "+frames_max+" FPS");
+	game.log("Min "+frames_min+" FPS");
 }
