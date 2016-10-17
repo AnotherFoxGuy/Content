@@ -1,0 +1,7 @@
+tutorial-terrain.raw
+3
+; worldSize, diffusespecular, normalheight, blendmap, blendmapmode, alpha
+3000     , tutorial-terrain.dds      ,   tutorial-terrain.dds
+6        , grass_ds.dds         ,    grass_ds.dds         ,   flat_map_rgb1.png, R, 0.95
+6        , Flatmap_terrain_detail.dds   ,    Flatmap_terrain_detail.dds   ,   flat_map_rgb1.png, G, 0.5
+

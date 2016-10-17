@@ -1,0 +1,23 @@
+[General]
+Name = Rigs of Rods Tutorial
+GeometryConfig = tutorial-terrain.otc
+Water=1
+AmbientColor = 0.93, 0.86, 0.76
+StartPosition = 1500.0 0.0 1500.0
+#CaelumConfigFile =
+SandStormCubeMap = tracks/skyboxcol
+Gravity = -9.81
+CategoryID = 129
+Version = 2
+GUID = 68605cd6-5285-41f8-8511-cf6e5fdb5c89
+
+[Authors]
+terrain = TechWolf32
+converting = Klink
+converting = AnotherFoxGuy
+
+[Objects]
+tutorial-terrain.tobj=
+
+[Scripts]
+tutorial-terrain.as=

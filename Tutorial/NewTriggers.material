@@ -1,0 +1,79 @@
+
+material trucktriggerV2_ring
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			depth_check on
+			depth_write off
+		   // diffuse 0.0 0.0 100.0 1.0
+            //emissive 1.0 0.0 0.0 1.0
+
+           //ambient 0.0 0.0 100.0 1.0
+           //specular 1.0 0.0 0.0 1.0
+			texture_unit
+			{
+				texture new_triggers_point.dds
+			}
+
+        }
+    }
+}
+
+material trucktriggerV2_arrow
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			depth_check on
+			//depth_write off
+            ambient 0.0 0.0 0.0 1.0
+            diffuse 0.0 0.0 0.0 1.0
+            specular 1.0 1.0 1.0 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+        }
+    }
+}
+
+material persontriggerV2_green
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			depth_check on
+			//depth_write off
+		    diffuse 0.0 100.0 0.0 1.0
+            emissive 0.0 100.0 0.0 1.0
+
+           ambient 0.0 100.0 0.0 1.0
+           //specular 1.0 0.0 0.0 1.0
+        }
+    }
+}
+
+material persontriggerV2_black
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			depth_check on
+			//depth_write off
+		    diffuse 0.0 0.0 0.0 1.0
+            //emissive 1.0 0.0 0.0 1.0
+			ambient 0.0 0.0 0.0 1.0
+			//specular 1.0 0.0 0.0 1.0
+        }
+    }
+}

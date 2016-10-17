@@ -1,0 +1,14 @@
+persontriggerV2.mesh
+0.5,0.5,0.5
+
+
+playanimation 1, 1, persontriggerJump
+
+
+beginbox
+boxcoords -1, 1, -0.2, 4, -1, 1
+virtual
+event trigger avatar
+endbox
+
+end

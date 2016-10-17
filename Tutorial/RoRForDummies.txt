@@ -1,0 +1,254 @@
+index
+1 = downloading ror
+2 = installing contents
+3 = getting more contents
+4 = getting started
+5 = basics
+6 = camera
+7 = truck shop
+8 = load spawner
+9 = hangar
+10 = dock
+11 = ingame menu
+12 = tips and tricks
+13 = lag & low fps
+14 = interest points
+15 = multiplayer
+16 = conclusion
+
+1. downloading rigs of rods
+-visit download.rigsofrods.com
+to obtain the latest version of ror.
+
+2.
+
+installing contents
+
+-visit here to obtain the content pack
+
+-once you get it unpack the zip into
+user/documents/rigs of rods 0.xx/packs
+(0.xx stands for your ror version)
+
+-you will fill the pack folder with other zips.
+
+3.
+
+getting more contents
+
+-visit here to get new addons
+(maps, vehicles, skins, etc)
+
+-to download addons click on the filename
+(see highlighted text in picture above)
+-to install just drop the zip into
+user/documents/rigs of rods 0.xx/packs
+note = do not extract the zip
+
+4. getting started
+-run rorconfig.exe
+
+(if not on desktop, search for it in the installation folder)
+
+-set up your configuration > click “save & play”
+
+note = it's suggested to first try with low settings
+
+5.
+
+basics
+
+-on the first run ror will create a cache.
+be patient, it may take some minutes.
+-once it's done, you will have to choose a terrain
+
+-for example we choose north st. helens
+(included in the content pack)
+
+note = you can use keyboard to navigate trough menu
+
+-once map loads you will see this:
+
+-you are this dude. we kindly call him mr.rorbot.
+note = character may vary, the one in the picture is the new rorbot
+included in the version 0.39
+-his controls are:
+w = forward |
+
+a = strafe right | s = backward | d = strafe left
+spacebar - jump
+
+-you can also use arrows
+up = forward | right = turns right | down = backward | left = turn left
+
+6.
+
+camera basics
+
+-you can control camera by using numpad
+8 = camera up | 2 = camera down | 4 = camera right
+6 = camera left | 5 = center camera
+
+-you can change field of view with:
+7 = less fov
+ctrl + 7 = more fov
+-you can also use right click + mouse to rotate
+and mousewheel to zoom out or in
+
+7.
+
+truckshop
+
+-this is a truckshop, run into the open door to open
+the vehicle selector menu
+
+-we will choose “bus rvi agora s”
+
+-you will see this:
+
+note = hud may vary on versions
+the one you see is the 0.39 version
+
+-you can drive by using arrows keys
+gear mode layout is like this
+r = rear gear
+n - neutral
+d = drive < default one
+1 = first gear
+2 = second gear
+you can use pageup/pagedown to switch between
+to start a car use “x” for battery and “s” for ignition
+
+-additional controls:
+i = to respawn vehicle
+backspace = to reset vehicle
+t = statistic and vehicle infos
+l = attach load (on wreckers or cranes)
+o = secure load (same as above)
+n = headlights
+m = beacons (on vehicles having beacons)
+h = horn
+q = transmission mode
+a = shift up gear
+z = shift down gear
+c = change camera view
+r = rescue truck (on maps having it)
+
+p = parking brake
+ctrl + 1-9 (not numpad) = additional lights
+f1-f12 - additional controls (ex. cranes)
+ctrl + f1-f12 = additional controls (ex. cranes)
+alt + f1-f12 = additional controls (ex. cranes)
+
+8.
+
+load spawner
+
+-this is a generic load spawner
+-stand on the small plate to bring up the menu
+
+-we will choose chemical trailer
+
+-you can use a semi truck to attach (l) the trailer
+
+-generic trailer controls are:
+f1 = f2 = raise/lower legs
+
+9.
+
+hangar
+
+-here you can spawn airplanes and helicopters
+
+-just walk into the open door to bring the menu
+
+-we will use the 767 airliner
+
+-you can use both mouse interaction with hud
+or keyboard.
+
+keyboard controls:
+ctrl + home = turn on all engines
+pageup/pagedown = throttle (+ctrl = instant max/min throttle)
+m = position lights
+p = brake
+arrows = pitching & rolling
+z/x = yaw
+
+10. dock
+-here you can spawn boats
+
+-enter this door for menu
+
+-boat controls:
+pageup/pagedown = throttle
+arrows = turn
+
+11. ingame menu
+-if you move the mouse on the top of the screen
+a toolbar will appear.
+
+-you can use it to spawn vehicles (all kind)
+-you can save/load vehicle positions
+-you can use debugging tools (for content creation)
+
+12. tips and tricks
+-if you use caelum sky, you can use numpad +/- to
+change time of the day (+shift = faster)
+
+-if you enabled waves, the farther you get from
+map, the bigger the waves!
+-you can go freecamera mode with shift + c then
+you can go fixed camera with ctrl+c
+-you can get exclusive betas by looking trough
+ror forums
+-you can join irc chat to get live help!
+
+13. lag & low fps
+recommended system requirements
+• cpu: p4 or equivalent amd at 2ghz or more, better with hyperthreading technology or dual-core (ror has dualcore support)
+• ram:512 mb of ram
+• video card: 3d accelerated with 128mb of vram or more
+• directx 9c on windows, or glx on linux
+• supports force feedback joysticks and wheels (except on linux)
+• supports 3d sound effects with multichannel sound cards (enable the hardware sound renderer)
+
+these are the requirements to run
+basic vehicles
+to run more complex vehicles (gabester's
+cars/cranes/etc) it's suggested to have a
+faster pc.
+ror is a cpu intensive simulator, so the faster
+cpu you have, the better it is.
+if you have low fps, the only fix is to upgrade
+your pc.
+ex. amd phenom 9600 is enough to use gavril zeta
+at 30-40fps.
+
+14. interest points
+= here you can find the wiki, to know more about
+ror and check the changelog.
+-you can report any bug by using redmine.
+you can find it here. please be sure your bug is not
+in the list yet.
+-forums are the heart of ror community, you
+will find a lot of interesting things there.
+
+15. multiplayer
+-you can play multiplayer by opening rorconfig.exe
+and going into network tab, choose a server and
+click “save & play”.
+
+note = you must have the cars people
+use to see them, or they will be
+invisible for you
+
+16. conclusion
+well, this is almost everything you
+need to know to use ror.
+i hope this helped you.
+cya in ror :)
+
+guide created by nadeox1
+
+
