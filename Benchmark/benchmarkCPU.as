@@ -32,10 +32,15 @@ void main()
 {
 	Length = sp_points.length();
 	//45,135,225,315
-	SetupVehicle(sp_points[1],vector3(0, 225, 0));
-	SetupVehicle(sp_points[2],vector3(0, 45, 0));
-	SetupVehicle(sp_points[3],vector3(0, 315, 0));
-	SetupVehicle(sp_points[4],vector3(0, 135, 0));
+	SetupVehicle(vector3(1950, 0, 1950), vector3(0, 135, 0));
+	SetupVehicle(vector3(1950, 0, 2050), vector3(0, 225, 0));
+	SetupVehicle(vector3(2050, 0, 1950), vector3(0,  45, 0));
+	SetupVehicle(vector3(2050, 0, 2050), vector3(0, 315, 0));
+
+	SetupVehicle(vector3(2050, 0, 2000), vector3(0,   0, 0));
+	SetupVehicle(vector3(2000, 0, 1950), vector3(0,  90, 0));
+	SetupVehicle(vector3(1950, 0, 2000), vector3(0, 180, 0));
+	SetupVehicle(vector3(2000, 0, 2050), vector3(0, 270, 0));
 
 	if(failed_to_setup)
 	{
@@ -81,15 +86,16 @@ void frameStep(float dt)
 
 void SetupVehicle(vector3 spawn, vector3 rot)
 {
-	vector3 tmpsp = vector3(spawn.x, 0, spawn.z);
-	BeamClass @truck = game.spawnTruck("burnside.truck" , tmpsp, rot);
+	BeamClass @truck = game.spawnTruck("burnside.truck" , spawn, rot);
 	if(truck != null)
 	{
 		VehicleAIClass @ai = truck.getVehicleAI();
 		//game.spawnObject("trucktriggerV2" , "trucktriggerV2", waypoints[i], vector3(0, -90, 0),  "Event1", false);
-		game.log("spawnWaypoint"+i);
+		game.log("spawnTruck");
+		ai.addWaypoint("Start",spawn);
 		ai.addWaypoint("Waypoint",center);
 		ai.setActive(true);
+		ai.setValueAtWaypoint("Start",AI_SPEED, 500);
 	}
 	else
 	{
@@ -100,60 +106,61 @@ void SetupVehicle(vector3 spawn, vector3 rot)
 void calcPosition(float dt)
 {
 	p0 = sp_points[j];
-    p1 = sp_points[j + 1];
-    if (j > 0)
-    {
-        m0.x = 0.5f * (sp_points[j + 1].x - sp_points[j - 1].x);
-        m0.y = 0.5f * (sp_points[j + 1].y - sp_points[j - 1].y);
-        m0.z = 0.5f * (sp_points[j + 1].z - sp_points[j - 1].z);
-    }
-    else
-    {
-        m0.x = sp_points[j + 1].x - sp_points[j].x;
-        m0.y = sp_points[j + 1].y - sp_points[j].y;
-        m0.z = sp_points[j + 1].z - sp_points[j].z;
-    }
-    if (j < Length - 2)
-    {
-        m1.x = 0.5f * (sp_points[j + 2].x - sp_points[j].x);
-        m1.y = 0.5f * (sp_points[j + 2].y - sp_points[j].y);
-        m1.z = 0.5f * (sp_points[j + 2].z - sp_points[j].z);
-    }
-    else
-    {
-        m1.x = sp_points[j + 1].x - sp_points[j].x;
-        m1.y = sp_points[j + 1].y - sp_points[j].y;
-        m1.z = sp_points[j + 1].z - sp_points[j].z;
-    }
-    t = i;
-    position.x = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.x
-        + (t * t * t - 2.0f * t * t + t) * m0.x
-            + (-2.0f * t * t * t + 3.0f * t * t) * p1.x
-            + (t * t * t - t * t) * m1.x;
-    position.y = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.y
-        + (t * t * t - 2.0f * t * t + t) * m0.y
-            + (-2.0f * t * t * t + 3.0f * t * t) * p1.y
-            + (t * t * t - t * t) * m1.y;
-    position.z = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.z
-        + (t * t * t - 2.0f * t * t + t) * m0.z
-            + (-2.0f * t * t * t + 3.0f * t * t) * p1.z
-            + (t * t * t - t * t) * m1.z;
-    i = i + dt / 5;
-    if (i >= 1)
-    {
-        j++;
+  p1 = sp_points[j + 1];
+  if (j > 0)
+  {
+      m0.x = 0.5f * (sp_points[j + 1].x - sp_points[j - 1].x);
+      m0.y = 0.5f * (sp_points[j + 1].y - sp_points[j - 1].y);
+      m0.z = 0.5f * (sp_points[j + 1].z - sp_points[j - 1].z);
+  }
+  else
+  {
+      m0.x = sp_points[j + 1].x - sp_points[j].x;
+      m0.y = sp_points[j + 1].y - sp_points[j].y;
+      m0.z = sp_points[j + 1].z - sp_points[j].z;
+  }
+  if (j < Length - 2)
+  {
+      m1.x = 0.5f * (sp_points[j + 2].x - sp_points[j].x);
+      m1.y = 0.5f * (sp_points[j + 2].y - sp_points[j].y);
+      m1.z = 0.5f * (sp_points[j + 2].z - sp_points[j].z);
+  }
+  else
+  {
+      m1.x = sp_points[j + 1].x - sp_points[j].x;
+      m1.y = sp_points[j + 1].y - sp_points[j].y;
+      m1.z = sp_points[j + 1].z - sp_points[j].z;
+  }
+  t = i;
+  position.x = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.x
+      + (t * t * t - 2.0f * t * t + t) * m0.x
+          + (-2.0f * t * t * t + 3.0f * t * t) * p1.x
+          + (t * t * t - t * t) * m1.x;
+  position.y = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.y
+      + (t * t * t - 2.0f * t * t + t) * m0.y
+          + (-2.0f * t * t * t + 3.0f * t * t) * p1.y
+          + (t * t * t - t * t) * m1.y;
+  position.z = (2.0f * t * t * t - 3.0f * t * t + 1.0f) * p0.z
+      + (t * t * t - 2.0f * t * t + t) * m0.z
+          + (-2.0f * t * t * t + 3.0f * t * t) * p1.z
+          + (t * t * t - t * t) * m1.z;
+  i = i + dt / 5;
+  if (i >= 1)
+  {
+      j++;
+      i = 0;
+      if (j >= Length - 1)
+      {
+      	benchmark = false;
+				float av = average_fps / times_measured;
+				game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
+				game.log("Max FPS: " + frames_max);
+				game.log("Min FPS: " + frames_min);
+				game.log("Average FPS: " + av);
+				game.setPersonPosition(vector3(2050, 0, 2000));
         i = 0;
-        if (j >= Length - 1)
-        {
-        	benchmark = false;
-					float av = average_fps / times_measured;
-					game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
-					game.log("Max FPS: " + frames_max);
-					game.log("Min FPS: " + frames_min);
-					game.log("Average FPS: " + av);
-          i = 0;
-          j = 0;
-        }
-    }
-    game.setCameraPosition(position);
+        j = 0;
+      }
+  }
+  game.setCameraPosition(position);
 }
