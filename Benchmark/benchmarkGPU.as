@@ -2,22 +2,20 @@
 int s = 0;
 bool works = true;
 
-vector3 center(2000, 0,  2000);
+vector3 center(50, 0, 2000);
 
 array<vector3> sp_points = {
-		vector3(1950, 20, 1950),
-		vector3(1950, 20, 2050),
-		vector3(2050, 20, 2050),
-		vector3(2050, 20, 1950),
-		vector3(1950, 20, 1950)
+	vector3(2500, 20, 2500),
+	vector3(2550, 50, 2600),//panstart
+	vector3(2600, 50, 2550),//panstop
+	vector3(2500, 20, 2500)
 };
 
 array<vector3> sp_points_lookat = {
-		vector3(1950, 15, 1960),
-		vector3(1960, 20, 2050),
-		vector3(2050, 15, 2040),
-		vector3(2040, 18, 1950),
-		vector3(1950, 15, 1960)
+	vector3(2400, 15, 2400),
+	vector3(2450, 40, 2400),//panstart
+	vector3(2400, 40, 2450),//panstop
+	vector3(2400, 15, 2400)
 };
 
 vector3 p0,p1,m0,m1;
@@ -29,24 +27,26 @@ int j, n;
 float i, m;
 
 float ft = 0;
-int frames = 0;
-array<int> frame;
-int frames_max;
-int frames_min = 9999;
+float average_fps;
+int times_measured;
+float frames_max;
+float frames_min = 9999;
 float timer = 30;
 bool benchmark = true;
 
 void main()
 {
 	Length = sp_points.length();
-
+	int spawns = 0;
 	for( int x = 1500; x < 2500; x+=25 )
 	{
 		for( int z = 1500; z < 2500; z+=25 )
 		{
+			spawns++;
 			game.spawnObject("Eds_Tree1" , "Eds_Tree1",vector3(x,0,z), vector3(0, -90, 0),  "e", false);
 		}
 	}
+	game.log("Objects spawned: " + spawns);
 }
 
 void frameStep(float dt)
@@ -57,10 +57,12 @@ void frameStep(float dt)
 		game.setPersonPosition(center);
 		calcCamPos(dt);
 		calcLookAtPos(dt);
-		ft = ft + dt;
-		frames++;
-		if(ft > 1)
+		ft += dt;
+		if(ft > 0.5)
 		{
+			float frames = game.getFPS();
+			average_fps += frames;
+			times_measured++;
 			game.message(frames+" FPS \nMax "+frames_max+" FPS \nMin "+frames_min+" FPS","note.png", 1000, true);
 			if (frames > frames_max)
 			{
@@ -70,17 +72,14 @@ void frameStep(float dt)
 			{
 				frames_min = frames;
 			}
-			frame.insertLast(frames);
-			frames = 0;
 			ft = 0;
 		}
 	}
-
 }
 
 void calcCamPos(float dt)
 {
-		p0 = sp_points[j];
+	p0 = sp_points[j];
     p1 = sp_points[j + 1];
     if (j > 0)
     {
@@ -134,7 +133,7 @@ void calcCamPos(float dt)
 
 void calcLookAtPos(float dt)
 {
-		p0 = sp_points_lookat[n];
+	p0 = sp_points_lookat[n];
     p1 = sp_points_lookat[n + 1];
     if (n > 0)
     {
@@ -190,7 +189,9 @@ void results()
 {
 	benchmark = false;
 	m = 0; n = 0; i = 0; j = 0;
-	game.showMessageBox("Results","Max FPS:"+frames_max+"\nMin FPS:"+frames_min,true,"Ok",false,false,"");
-	game.log("Max "+frames_max+" FPS");
-	game.log("Min "+frames_min+" FPS");
+	float av = average_fps / times_measured;
+	game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
+	game.log("Max FPS: " + frames_max);
+	game.log("Min FPS: " + frames_min);
+	game.log("Average FPS: " + av);
 }

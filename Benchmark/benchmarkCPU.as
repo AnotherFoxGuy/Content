@@ -18,10 +18,11 @@ int Length;
 int j = 0;
 float i = 0;
 
-float ft = 0;
-int frames = 0;
-int frames_max;
-int frames_min = 9999;
+float ft= -1;
+float average_fps;
+int times_measured;
+float frames_max;
+float frames_min = 9999;
 float timer = 60;
 bool benchmark = true;
 
@@ -58,10 +59,12 @@ void frameStep(float dt)
 		game.cameraLookAt(center);
 		game.setPersonPosition(center);
 		calcPosition(dt);
-		ft = ft + dt;
-		frames++;
-		if(ft > 1)
+		ft += dt;
+		if(ft > 0.5)
 		{
+			float frames = game.getFPS();
+			average_fps += frames;
+			times_measured++;
 			game.message(frames+" FPS \nMax "+frames_max+" FPS \nMin "+frames_min+" FPS","note.png", 1000, true);
 			if (frames > frames_max)
 			{
@@ -71,7 +74,6 @@ void frameStep(float dt)
 			{
 				frames_min = frames;
 			}
-			frames = 0;
 			ft = 0;
 		}
 	}
@@ -97,7 +99,7 @@ void SetupVehicle(vector3 spawn, vector3 rot)
 
 void calcPosition(float dt)
 {
-		p0 = sp_points[j];
+	p0 = sp_points[j];
     p1 = sp_points[j + 1];
     if (j > 0)
     {
@@ -144,9 +146,11 @@ void calcPosition(float dt)
         if (j >= Length - 1)
         {
         	benchmark = false;
-					game.showMessageBox("Results","Max FPS:"+frames_max+"\nMin FPS:"+frames_min,true,"Ok",false,false,"");
-					game.log("Max "+frames_max+" FPS");
-					game.log("Min "+frames_min+" FPS");
+					float av = average_fps / times_measured;
+					game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
+					game.log("Max FPS: " + frames_max);
+					game.log("Min FPS: " + frames_min);
+					game.log("Average FPS: " + av);
           i = 0;
           j = 0;
         }
