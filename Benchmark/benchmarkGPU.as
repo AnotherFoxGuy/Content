@@ -43,7 +43,7 @@ void main()
 		for( int z = 1500; z < 2500; z+=25 )
 		{
 			spawns++;
-			game.spawnObject("Eds_Tree1" , "Eds_Tree1",vector3(x,0,z), vector3(0, -90, 0),  "e", false);
+			game.spawnObject("Eds_Tree1" , "Eds_Tree1",vector3(x,0,z), vector3(0, -90, 0),  "", false);
 		}
 	}
 	game.log("Objects spawned: " + spawns);
@@ -79,7 +79,7 @@ void frameStep(float dt)
 
 void calcCamPos(float dt)
 {
-	p0 = sp_points[j];
+		p0 = sp_points[j];
     p1 = sp_points[j + 1];
     if (j > 0)
     {
