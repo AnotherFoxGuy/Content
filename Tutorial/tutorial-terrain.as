@@ -1,6 +1,6 @@
 #include "base.as"
 
-float wait_timer = 1f;
+float wait_timer = 1;
 bool wait_for_event;
 
 string message_box_title = "Rigs of Rods tutorial";
