@@ -1,13 +1,15 @@
 #include "base.as"
 
+bool first_frame = false;
+
 vector3 center(2000, 0,  2000);
 
 array<vector3> sp_points = {
-		vector3(1950, 10, 1950),
-		vector3(1950, 10, 2050),
-		vector3(2050, 10, 1950),
-		vector3(2050, 10, 2050),
-		vector3(1950, 10, 1950)
+  vector3(1950, 10, 1950),
+  vector3(1950, 10, 2050),
+  vector3(2050, 10, 1950),
+  vector3(2050, 10, 2050),
+  vector3(1950, 10, 1950)
 };
 
 vector3 p0,p1,m0,m1;
@@ -28,84 +30,89 @@ bool benchmark = true;
 
 bool failed_to_setup = false;
 
-void main()
+void start_b()
 {
-	Length = sp_points.length();
-	//45,135,225,315
-	SetupVehicle(vector3(1950, 0, 1950), vector3(0, 135, 0));
-	SetupVehicle(vector3(1950, 0, 2050), vector3(0, 225, 0));
-	SetupVehicle(vector3(2050, 0, 1950), vector3(0,  45, 0));
-	SetupVehicle(vector3(2050, 0, 2050), vector3(0, 315, 0));
+  Length = sp_points.length();
+  //45,135,225,315
+  SetupVehicle(vector3(1950, 0, 1950), vector3(0, 135, 0));
+  SetupVehicle(vector3(1950, 0, 2050), vector3(0, 225, 0));
+  SetupVehicle(vector3(2050, 0, 1950), vector3(0,  45, 0));
+  SetupVehicle(vector3(2050, 0, 2050), vector3(0, 315, 0));
 
-	SetupVehicle(vector3(2050, 0, 2000), vector3(0,   0, 0));
-	SetupVehicle(vector3(2000, 0, 1950), vector3(0,  90, 0));
-	SetupVehicle(vector3(1950, 0, 2000), vector3(0, 180, 0));
-	SetupVehicle(vector3(2000, 0, 2050), vector3(0, 270, 0));
+  SetupVehicle(vector3(2050, 0, 2000), vector3(0,   0, 0));
+  SetupVehicle(vector3(2000, 0, 1950), vector3(0,  90, 0));
+  SetupVehicle(vector3(1950, 0, 2000), vector3(0, 180, 0));
+  SetupVehicle(vector3(2000, 0, 2050), vector3(0, 270, 0));
 
-	if(failed_to_setup)
-	{
-		game.showMessageBox("ERROR","You need the burnside for this map to work!!! Check Angelscript.log for more info.",true,"Ok",false,false,"");
-		game.log("You need the burnside for this map to work !!!");
-		game.log("Thread link: http://www.rigsofrods.com/threads/56285-Burnside-now-with-correct-wheel-size");
-	}
-	else
-	{
-		game.message("benchmark successfully loaded!","note.png", 10000, true);
-		game.log("benchmark successfully loaded!");
-		game.setTrucksForcedActive(true);
-		game.activateAllVehicles();
-	}
+  if(failed_to_setup)
+  {
+    game.showMessageBox("ERROR","You need the burnside for this map to work!!! Check Angelscript.log for more info.",true,"Ok",false,false,"");
+    game.log("You need the burnside for this map to work !!!");
+    game.log("Thread link: http://www.rigsofrods.com/threads/56285-Burnside-now-with-correct-wheel-size");
+  }
+  else
+  {
+    game.message("benchmark successfully loaded!","note.png", 10000, true);
+    game.log("benchmark successfully loaded!");
+    game.setTrucksForcedActive(true);
+    game.activateAllVehicles();
+  }
 }
 
 void frameStep(float dt)
 {
-	if(benchmark && !failed_to_setup)
-	{
-		game.cameraLookAt(center);
-		game.setPersonPosition(center);
-		calcPosition(dt);
-		ft += dt;
-		if(ft > 0.5)
-		{
-			float frames = game.getFPS();
-			average_fps += frames;
-			times_measured++;
-			game.message(frames+" FPS \nMax "+frames_max+" FPS \nMin "+frames_min+" FPS","note.png", 1000, true);
-			if (frames > frames_max)
-			{
-				frames_max = frames;
-			}
-			if (frames < frames_min)
-			{
-				frames_min = frames;
-			}
-			ft = 0;
-		}
-	}
+  if(!first_frame)
+  {
+    first_frame = true;
+    start_b();
+  }
+  if(benchmark && !failed_to_setup)
+  {
+    game.cameraLookAt(center);
+    game.setPersonPosition(center);
+    calcPosition(dt);
+    ft += dt;
+    if(ft > 0.5)
+    {
+      float frames = game.getFPS();
+      average_fps += frames;
+      times_measured++;
+      game.message(frames+" FPS \nMax "+frames_max+" FPS \nMin "+frames_min+" FPS","note.png", 1000, true);
+      if (frames > frames_max)
+      {
+        frames_max = frames;
+      }
+      if (frames < frames_min)
+      {
+        frames_min = frames;
+      }
+      ft = 0;
+    }
+  }
 }
 
 void SetupVehicle(vector3 spawn, vector3 rot)
 {
-	BeamClass @truck = game.spawnTruck("burnside.truck" , spawn, rot);
-	if(truck != null)
-	{
-		VehicleAIClass @ai = truck.getVehicleAI();
-		//game.spawnObject("trucktriggerV2" , "trucktriggerV2", waypoints[i], vector3(0, -90, 0),  "Event1", false);
-		game.log("spawnTruck");
-		ai.addWaypoint("Start",spawn);
-		ai.addWaypoint("Waypoint",center);
-		ai.setActive(true);
-		ai.setValueAtWaypoint("Start",AI_SPEED, 500);
-	}
-	else
-	{
-		failed_to_setup = true;
-	}
+  BeamClass @truck = game.spawnTruck("burnside.truck" , spawn, rot);
+  if(truck != null)
+  {
+    VehicleAIClass @ai = truck.getVehicleAI();
+    //game.spawnObject("trucktriggerV2" , "trucktriggerV2", waypoints[i], vector3(0, -90, 0),  "Event1", false);
+    game.log("spawnTruck");
+    ai.addWaypoint("Start",spawn);
+    ai.addWaypoint("Waypoint",center);
+    ai.setActive(true);
+    ai.setValueAtWaypoint("Start",AI_SPEED, 500);
+  }
+  else
+  {
+    failed_to_setup = true;
+  }
 }
 
 void calcPosition(float dt)
 {
-	p0 = sp_points[j];
+  p0 = sp_points[j];
   p1 = sp_points[j + 1];
   if (j > 0)
   {
@@ -152,12 +159,12 @@ void calcPosition(float dt)
       if (j >= Length - 1)
       {
       	benchmark = false;
-				float av = average_fps / times_measured;
-				game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
-				game.log("Max FPS: " + frames_max);
-				game.log("Min FPS: " + frames_min);
-				game.log("Average FPS: " + av);
-				game.setPersonPosition(vector3(2050, 0, 2000));
+        float av = average_fps / times_measured;
+        game.showMessageBox("Results","Max FPS: "+frames_max+"\nMin FPS: "+frames_min+"\nAverage FPS: "+av,true,"Ok",false,false,"");
+        game.log("Max FPS: " + frames_max);
+        game.log("Min FPS: " + frames_min);
+        game.log("Average FPS: " + av);
+        game.setPersonPosition(vector3(2050, 0, 2000));
         i = 0;
         j = 0;
       }
